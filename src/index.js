@@ -5,13 +5,31 @@ import App from './App';
 import store from './app/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
+import { Login } from './features/login/Login';
+import { About } from './features/about/About';
+import { Route, Switch, HashRouter } from "react-router-dom";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <HashRouter>
+      <div className="">
+        <Switch>
+          <Route exact path="/home">
+            <App />
+          </Route>
+          <Route exact path="/">
+            <App />
+          </Route>
+          <Route exact path="/login">
+            <Login />
+          </Route>
+          <Route exact path="/about">
+            <About />
+          </Route>
+        </Switch>
+      </div>
+    </HashRouter>
+  </Provider>,
   document.getElementById('root')
 );
 
