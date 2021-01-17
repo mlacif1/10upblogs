@@ -8,6 +8,7 @@ import {
   selectUsername,
 } from "../login/loginSlice";
 import { getPages } from "../../api/pagesApi";
+import dompurify from "dompurify";
 
 export const About = () => {
   const dispatch = useDispatch();
@@ -43,6 +44,8 @@ export const About = () => {
     }
   }, [canLoadPages]);
 
+  const sanitizer = dompurify.sanitize;
+
   return (
     <div>
       <Header />
@@ -51,7 +54,7 @@ export const About = () => {
       {page && (
         <div
           className="page"
-          dangerouslySetInnerHTML={{ __html: page.content.rendered }}
+          dangerouslySetInnerHTML={{ __html: sanitizer(page.content.rendered) }}
         ></div>
       )}
     </div>

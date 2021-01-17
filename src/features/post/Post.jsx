@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchAuthor } from "../../api/postsApi";
 import "./Post.css";
+import dompurify from "dompurify";
 
 export const Post = (props) => {
   const { renderedTitle, date, authorHref, renderedContent, id } = props;
@@ -17,6 +18,7 @@ export const Post = (props) => {
         setAuthor("");
       });
   }, [authorHref]);
+  const sanitizer = dompurify.sanitize;
 
   return (
     <article
@@ -43,7 +45,7 @@ export const Post = (props) => {
       <div
         itemProp="articleBody"
         className="content"
-        dangerouslySetInnerHTML={{ __html: renderedContent }}
+        dangerouslySetInnerHTML={{ __html: sanitizer(renderedContent) }}
       ></div>
     </article>
   );
